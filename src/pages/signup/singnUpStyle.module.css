@@ -1,0 +1,62 @@
+/* removing spinner arrows from input type numer */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+/* removing spinner arrows from input type numer */
+
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  gap: 0.6rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+h2 {
+  font-weight: bold;
+}
+p {
+  color: gray;
+  font-weight: bold;
+}
+form {
+  border-radius: 20px;
+  width: 50%;
+  height: 50%;
+  background-color: red;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  input {
+    width: 80%;
+    margin: 2% 0;
+    padding: 1rem 1.5rem;
+    outline: none;
+    border: 2px solid #c2c2c2;
+    border-radius: 5px;
+  }
+  .checkbox {
+    display: flex;
+  }
+
+  button {
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 800px) {
+  form {
+    width: 90%;
+  }
+}
