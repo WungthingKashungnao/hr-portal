@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "./singnUpStyle.module.css";
 import { useState } from "react";
+import { Bounce, ToastContainer, toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const SignUp = () => {
   const [userDetails, setUserDetails] = useState({
@@ -15,20 +17,67 @@ const SignUp = () => {
     e.preventDefault();
 
     const users = JSON.parse(localStorage.getItem("users")) || [];
+
+    for (const element of users) {
+      if (element.name.toLowerCase() === userDetails.name.toLocaleLowerCase()) {
+        console.log("ele name>>", element.name.toLowerCase());
+        console.log("user name>>", userDetails.name.toLocaleLowerCase());
+        toast.error("There is an existing user with the same name!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
+        return;
+      }
+
+      if (
+        element.email.toLowerCase() === userDetails.email.toLocaleLowerCase()
+      ) {
+        toast.error("There is an existing user with the same email!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
+        return;
+      }
+    }
+
     users.push(userDetails);
     localStorage.setItem("users", JSON.stringify(users));
-    console.log("users  >>>>>", users);
+    toast.success("Successfully signed up!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      transition: Bounce,
+    });
   };
 
   return (
     <div className={styles.container}>
       <h2>Create an Account</h2>
-      <p>Your personal HR portal</p>
+      {/* <p>Your personal HR portal</p> */}
       <form onSubmit={handleSubmit}>
         <input
           required
           type="text"
-          placeholder="Name"
+          placeholder="username"
           value={userDetails.name}
           onChange={(e) =>
             setUserDetails({ ...userDetails, name: e.target.value })
@@ -69,21 +118,35 @@ const SignUp = () => {
         />
 
         <div className={styles.checkbox}>
-          <input
-            type="checkbox"
-            value={userDetails.isEmployee}
-            onClick={() =>
-              setUserDetails({
-                ...userDetails,
-                isEmployee: !userDetails.isEmployee,
-              })
-            }
-          />{" "}
-          <label>Signup as an employee</label>
+          <div className={styles.inpt}>
+            <input
+              className={styles.isEmployee}
+              type="checkbox"
+              value={userDetails.isEmployee}
+              onClick={() =>
+                setUserDetails({
+                  ...userDetails,
+                  isEmployee: !userDetails.isEmployee,
+                })
+              }
+            />
+          </div>{" "}
+          <div>
+            <span>Signup as an employee</span>
+          </div>
         </div>
 
         <button>Create Account</button>
+        <div className={styles.link}>
+          <p>
+            Already have an account?{" "}
+            <Link to={"/signin"} className={styles.singin}>
+              Sign In
+            </Link>{" "}
+          </p>
+        </div>
       </form>
+      <ToastContainer />
     </div>
   );
 };
