@@ -1,0 +1,29 @@
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  gap: 0.6rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+h2 {
+  font-weight: bold;
+}
+
+.link {
+  margin-bottom: 1rem;
+  p {
+    color: white;
+  }
+  .singup {
+    color: white;
+    text-decoration: none;
+  }
+}
+
+@media (max-width: 800px) {
+  form {
+    width: 90%;
+  }
+}
