@@ -8,9 +8,14 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 /* removing spinner arrows from input type numer */
 
+.parentContainer {
+  width: 100%;
+  height: 100%;
+}
 .container {
   width: 100%;
   height: 100%;
+  /* height: calc(100%-100px); */
   display: flex;
   gap: 0.6rem;
   flex-direction: column;
@@ -28,7 +33,7 @@ form {
   border-radius: 20px;
   width: 50%;
   height: 50%;
-  background-color: red;
+  background-color: #ed5353;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

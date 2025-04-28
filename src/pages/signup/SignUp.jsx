@@ -3,6 +3,7 @@ import styles from "./singnUpStyle.module.css";
 import { useState } from "react";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import Header from "../../components/header/header";
 
 const SignUp = () => {
   const [userDetails, setUserDetails] = useState({
@@ -70,83 +71,86 @@ const SignUp = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <h2>Create an Account</h2>
-      {/* <p>Your personal HR portal</p> */}
-      <form onSubmit={handleSubmit}>
-        <input
-          required
-          type="text"
-          placeholder="username"
-          value={userDetails.name}
-          onChange={(e) =>
-            setUserDetails({ ...userDetails, name: e.target.value })
-          }
-        />
+    <div className={styles.parentContainer}>
+      <Header />
+      <div className={styles.container}>
+        <h2>Create an Account</h2>
+        {/* <p>Your personal HR portal</p> */}
+        <form onSubmit={handleSubmit}>
+          <input
+            required
+            type="text"
+            placeholder="username"
+            value={userDetails.name}
+            onChange={(e) =>
+              setUserDetails({ ...userDetails, name: e.target.value })
+            }
+          />
 
-        <input
-          required
-          type="email"
-          placeholder="example@mail.com"
-          value={userDetails.email}
-          onChange={(e) =>
-            setUserDetails({ ...userDetails, email: e.target.value })
-          }
-        />
+          <input
+            required
+            type="email"
+            placeholder="example@mail.com"
+            value={userDetails.email}
+            onChange={(e) =>
+              setUserDetails({ ...userDetails, email: e.target.value })
+            }
+          />
 
-        <input
-          required
-          type="number"
-          placeholder="1234567890"
-          value={userDetails.mobile}
-          onKeyDown={(e) =>
-            ["e", "E", "+", "-"].includes(e.key) && e.preventDefault()
-          }
-          onChange={(e) =>
-            setUserDetails({ ...userDetails, mobile: e.target.value })
-          }
-        />
+          <input
+            required
+            type="number"
+            placeholder="1234567890"
+            value={userDetails.mobile}
+            onKeyDown={(e) =>
+              ["e", "E", "+", "-"].includes(e.key) && e.preventDefault()
+            }
+            onChange={(e) =>
+              setUserDetails({ ...userDetails, mobile: e.target.value })
+            }
+          />
 
-        <input
-          required
-          type="password"
-          placeholder="Password"
-          value={userDetails.password}
-          onChange={(e) =>
-            setUserDetails({ ...userDetails, password: e.target.value })
-          }
-        />
+          <input
+            required
+            type="password"
+            placeholder="Password"
+            value={userDetails.password}
+            onChange={(e) =>
+              setUserDetails({ ...userDetails, password: e.target.value })
+            }
+          />
 
-        <div className={styles.checkbox}>
-          <div className={styles.inpt}>
-            <input
-              className={styles.isEmployee}
-              type="checkbox"
-              value={userDetails.isEmployee}
-              onClick={() =>
-                setUserDetails({
-                  ...userDetails,
-                  isEmployee: !userDetails.isEmployee,
-                })
-              }
-            />
-          </div>{" "}
-          <div>
-            <span>Signup as an employee</span>
+          <div className={styles.checkbox}>
+            <div className={styles.inpt}>
+              <input
+                className={styles.isEmployee}
+                type="checkbox"
+                value={userDetails.isEmployee}
+                onClick={() =>
+                  setUserDetails({
+                    ...userDetails,
+                    isEmployee: !userDetails.isEmployee,
+                  })
+                }
+              />
+            </div>{" "}
+            <div>
+              <span>Signup as an employee</span>
+            </div>
           </div>
-        </div>
 
-        <button>Create Account</button>
-        <div className={styles.link}>
-          <p>
-            Already have an account?{" "}
-            <Link to={"/signin"} className={styles.singin}>
-              Sign In
-            </Link>{" "}
-          </p>
-        </div>
-      </form>
-      <ToastContainer />
+          <button>Create Account</button>
+          <div className={styles.link}>
+            <p>
+              Already have an account?{" "}
+              <Link to={"/signin"} className={styles.singin}>
+                Sign In
+              </Link>{" "}
+            </p>
+          </div>
+        </form>
+        <ToastContainer />
+      </div>
     </div>
   );
 };
