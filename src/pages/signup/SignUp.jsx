@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./singnUpStyle.module.css";
 import { useState } from "react";
 import { Bounce, ToastContainer, toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "../../components/header/header";
+import Context from "../../context/context";
 
 const SignUp = () => {
   const [userDetails, setUserDetails] = useState({
@@ -13,7 +14,8 @@ const SignUp = () => {
     password: "",
     isEmployee: false,
   });
-
+  const { setLoggedInUser } = useContext(Context);
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -68,6 +70,14 @@ const SignUp = () => {
       theme: "dark",
       transition: Bounce,
     });
+
+    const updatedUser = JSON.parse(localStorage.getItem("loggedInUser")) || {};
+    updatedUser.name = userDetails.name;
+    updatedUser.isLoggedIn = userDetails.isEmployee;
+
+    localStorage.setItem("loggedInUser", JSON.stringify(updatedUser));
+    setLoggedInUser(updatedUser);
+    navigate("/");
   };
 
   return (

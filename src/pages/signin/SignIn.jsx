@@ -1,23 +1,23 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styles from "./signInStyle.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import Header from "../../components/header/header";
+import Context from "../../context/context";
 
 const SignIn = () => {
   const [userDetails, setUserDetails] = useState({
     email: "",
     password: "",
   });
+
+  const { setLoggedInUser } = useContext(Context);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const users = JSON.parse(localStorage.getItem("users")) || [];
-    console.log("email>>>", userDetails.email);
-    console.log("password>>>", userDetails.password);
-    console.log("users>>>>", users);
 
     for (const element of users) {
       if (
@@ -35,6 +35,14 @@ const SignIn = () => {
           theme: "dark",
           transition: Bounce,
         });
+
+        const updatedUser =
+          JSON.parse(localStorage.getItem("loggedInUser")) || {};
+        updatedUser.name = element.name;
+        updatedUser.isEmployee = element.isEmployee;
+
+        localStorage.setItem("loggedInUser", JSON.stringify(updatedUser));
+        setLoggedInUser(updatedUser);
         navigate("/");
       }
     }
