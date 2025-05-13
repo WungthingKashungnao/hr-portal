@@ -74,6 +74,7 @@ const SignUp = () => {
     const updatedUser = JSON.parse(localStorage.getItem("loggedInUser")) || {};
     updatedUser.name = userDetails.name;
     updatedUser.isLoggedIn = userDetails.isEmployee;
+    updatedUser.email = userDetails.email;
 
     localStorage.setItem("loggedInUser", JSON.stringify(updatedUser));
     setLoggedInUser(updatedUser);

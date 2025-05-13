@@ -40,6 +40,7 @@ const SignIn = () => {
           JSON.parse(localStorage.getItem("loggedInUser")) || {};
         updatedUser.name = element.name;
         updatedUser.isEmployee = element.isEmployee;
+        updatedUser.email = element.email;
 
         localStorage.setItem("loggedInUser", JSON.stringify(updatedUser));
         setLoggedInUser(updatedUser);
