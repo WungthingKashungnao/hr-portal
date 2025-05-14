@@ -1,8 +1,74 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import styles from "./employee.module.css";
+import Context from "../../context/context";
+import { Bounce, ToastContainer, toast } from "react-toastify";
 
 const Employee = () => {
-  return <div className={styles.employeeContainer}></div>;
+  const { loggedInUser } = useContext(Context);
+  const [leave, setLeave] = useState({
+    reason: "",
+    status: "pending",
+    appliedByEmail: loggedInUser.email,
+    appliedByName: loggedInUser.name,
+    leaveId: 1,
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const leaveRequests =
+      JSON.parse(localStorage.getItem("leaveRequests")) || [];
+    // Calculate next leaveId
+    const nextLeaveId =
+      leaveRequests.length === 0
+        ? 1
+        : Math.max(...leaveRequests.map((request) => request.leaveId)) + 1;
+
+    // Create new leave request with updated ID
+    const newLeaveRequest = {
+      ...leave,
+      leaveId: nextLeaveId,
+    };
+
+    // Add to existing requests and save
+    leaveRequests.push(newLeaveRequest);
+    localStorage.setItem("leaveRequests", JSON.stringify(leaveRequests));
+    toast.success("Successfully signed up!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      transition: Bounce,
+    });
+
+    setLeave({
+      reason: "",
+      status: "pending",
+      appliedByEmail: loggedInUser.email, // Must re-fetch
+      appliedByName: loggedInUser.name, // Must re-fetch
+      leaveId: 1, // Will recalculate on next submit
+    });
+  };
+  return (
+    <div className={styles.employeeContainer}>
+      <div className={styles.empTop}>
+        <form onSubmit={handleSubmit}>
+          <textarea
+            required
+            placeholder="reason"
+            value={leave.reason}
+            onChange={(e) => setLeave({ ...leave, reason: e.target.value })}
+          />
+          <button>Apply Leave</button>
+        </form>
+      </div>
+      <div className={styles.empBot}></div>
+      <ToastContainer />
+    </div>
+  );
 };
 
 export default Employee;
