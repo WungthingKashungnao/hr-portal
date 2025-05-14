@@ -23,3 +23,45 @@
     }
   }
 }
+.empBot {
+  width: 100%;
+  height: 60%;
+  padding: 1rem;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  .leaveBox {
+    margin-top: 1rem;
+    width: 200px;
+    height: 300px;
+    background-color: white;
+    border: 5px solid #ed5353;
+
+    .leaveBoxTop {
+      padding: 0.5rem;
+      width: 100%;
+      height: 85%;
+      text-wrap: wrap;
+    }
+    .leaveBoxBot {
+      width: 100%;
+      height: 15%;
+      background-color: #ed5353;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  .empBot {
+    justify-content: center;
+    .leaveBox {
+      width: 80%;
+    }
+  }
+}

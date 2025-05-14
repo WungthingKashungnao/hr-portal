@@ -52,6 +52,10 @@ const Employee = () => {
       leaveId: 1, // Will recalculate on next submit
     });
   };
+
+  // Get leave requests from localStorage
+  const leaveRequests = JSON.parse(localStorage.getItem("leaveRequests")) || [];
+
   return (
     <div className={styles.employeeContainer}>
       <div className={styles.empTop}>
@@ -65,7 +69,16 @@ const Employee = () => {
           <button>Apply Leave</button>
         </form>
       </div>
-      <div className={styles.empBot}></div>
+      <div className={styles.empBot}>
+        {leaveRequests
+          .filter((request) => request.appliedByEmail === loggedInUser.email) // Only show current user's requests
+          .map((request) => (
+            <div key={request.leaveId} className={styles.leaveBox}>
+              <div className={styles.leaveBoxTop}>{request.reason}</div>
+              <div className={styles.leaveBoxBot}>Status: {request.status}</div>
+            </div>
+          ))}
+      </div>
       <ToastContainer />
     </div>
   );
