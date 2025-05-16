@@ -53,6 +53,17 @@
       justify-content: center;
       align-items: center;
       color: white;
+      .myStatus {
+        padding: 0.5rem;
+        font-weight: bold;
+      }
+      .accepted {
+        background-color: greenyellow;
+      }
+      .rejected {
+        background-color: red;
+        color: white;
+      }
     }
   }
 }

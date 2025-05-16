@@ -75,7 +75,20 @@ const Employee = () => {
           .map((request) => (
             <div key={request.leaveId} className={styles.leaveBox}>
               <div className={styles.leaveBoxTop}>{request.reason}</div>
-              <div className={styles.leaveBoxBot}>Status: {request.status}</div>
+              <div className={styles.leaveBoxBot}>
+                Status:{" "}
+                <button
+                  className={`${styles.myStatus} ${
+                    request.status === "accepted"
+                      ? styles.accepted
+                      : request.status === "rejected"
+                      ? styles.rejected
+                      : ""
+                  }`}
+                >
+                  {request.status}
+                </button>
+              </div>
             </div>
           ))}
       </div>
